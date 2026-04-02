@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "gl1VZtahkmob4OG2ISwvU"
@@ -18,3 +17,9 @@ id = "HaeWIzv0xoHhCmGjDRP2i"
 uri = "file://artifacts/mbc-platform/public/images/blood-drop.png"
 type = "image"
 title = "Blood drop 3D render"
+
+[[outputs]]
+id = "vhLPH0iC2HXq9me5Sg3jp"
+uri = "file://codebase.pdf"
+type = "pdf"
+title = "MBC Platform — Full Source Code"
