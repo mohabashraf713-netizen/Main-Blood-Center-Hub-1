@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "gl1VZtahkmob4OG2ISwvU"
+uri = "file://artifacts/mbc-platform/public/images/hero.png"
+type = "image"
+title = "Medical blood donation hero image"
+
+[[generated]]
+id = "Za62QCtDALhf_nONxOmi7"
+uri = "file://artifacts/mbc-platform/public/images/about.png"
+type = "image"
+title = "Medical doctors in hospital"
+
+[[generated]]
+id = "HaeWIzv0xoHhCmGjDRP2i"
+uri = "file://artifacts/mbc-platform/public/images/blood-drop.png"
+type = "image"
+title = "Blood drop 3D render"

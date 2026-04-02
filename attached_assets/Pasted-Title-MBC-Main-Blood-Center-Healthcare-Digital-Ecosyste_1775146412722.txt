@@ -1,0 +1,69 @@
+Title: MBC (Main Blood Center) - Healthcare Digital Ecosystem
+Style: Professional, Modern, Trustworthy, and Clean.
+Color Palette: Medical White, Deep Emergency Red (#D32F2F), and Soft Gray for backgrounds.
+
+Core Concept:
+Build a high-performance healthcare platform named "MBC" that connects blood donors, patients, and hospitals in a seamless real-time network. The design should be "Mobile-First" since emergency users will access it via smartphones. Use clear typography (Sans Serif) and high-quality medical iconography.
+
+The 8-Page Structure & Content:
+
+Home Page (Landing):
+
+Hero Section: A powerful headline: "Every Drop Counts. Connect. Donate. Save Lives."
+
+CTA Buttons: "Request Blood Now (Emergency)" and "Register as a Donor."
+
+Stats Counter: Live numbers of successful donations and registered hospitals.
+
+Donor Registration Page:
+
+A multi-step form (Personal Info -> Blood Type -> Last Donation Date -> Location).
+
+Eligibility checklist (Interactive icons for health requirements).
+
+Blood Request Page:
+
+Urgent request form for patients/hospitals.
+
+Fields: Blood type required, number of units, hospital location, and urgency level.
+
+Hospital & Center Locator:
+
+Interactive Map integration showing nearby hospitals and blood banks.
+
+Filter by: City, Availability of specific blood types.
+
+Educational Hub (The Science):
+
+Information about blood types (Compatibility Chart).
+
+Benefits of donation and post-donation care tips.
+
+Emergency Dashboard (Live Feed):
+
+A real-time "Ticker" or list showing active urgent requests in the user's area.
+
+About MBC & Partners:
+
+The mission of the "Main Blood Center."
+
+Logos of partner hospitals and health organizations to build trust.
+
+Contact & Support:
+
+Emergency hotline, FAQ section, and a feedback form for users.
+
+Technical Requirements:
+
+Clean navigation bar with a highlighted "Donate" button.
+
+Fast loading speed and SEO-optimized structure.
+
+Accessibility features (High contrast for readability).
+
+نصائح إضافية لضمان نجاح الموقع:
+التدرج اللوني: استخدم اللون الأحمر بحذر (للتنبيهات والأزرار المهمة فقط) حتى لا يسبب القلق للمستخدم؛ اجعل اللون الأبيض هو السائد ليعطي إحساساً بالنظافة والاحترافية الطبية.
+
+خرائط تفاعلية: إذا كان الموقع يدعم البرمجة، تأكد من ربط صفحة "المستشفيات" بـ Google Maps API.
+
+سهولة الوصول: في حالات الطوارئ، الشخص يكون متوتراً، لذا اجعل زر "طلب دم" هو الأبرز والأسهل في الوصول إليه (غالباً في أعلى اليمين أو منتصف الشاشة).

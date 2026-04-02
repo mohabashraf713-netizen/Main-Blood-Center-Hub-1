@@ -1,15 +1,22 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: MBC - Main Blood Center API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: donors
+    description: Blood donor operations
+  - name: requests
+    description: Blood request operations
+  - name: hospitals
+    description: Hospital and blood center operations
+  - name: dashboard
+    description: Dashboard and stats operations
 paths:
   /healthz:
     get:
@@ -24,6 +31,188 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /donors:
+    get:
+      operationId: listDonors
+      tags: [donors]
+      summary: List registered donors
+      parameters:
+        - name: bloodType
+          in: query
+          schema:
+            type: string
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: number
+        - name: offset
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: List of donors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  donors:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Donor"
+                  total:
+                    type: number
+                required: [donors, total]
+    post:
+      operationId: registerDonor
+      tags: [donors]
+      summary: Register a new donor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDonorBody"
+      responses:
+        "201":
+          description: Donor registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Donor"
+
+  /blood-requests:
+    get:
+      operationId: listBloodRequests
+      tags: [requests]
+      summary: List blood requests
+      parameters:
+        - name: urgency
+          in: query
+          schema:
+            type: string
+        - name: bloodType
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: city
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of blood requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requests:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BloodRequest"
+                  total:
+                    type: number
+                required: [requests, total]
+    post:
+      operationId: createBloodRequest
+      tags: [requests]
+      summary: Submit a blood request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBloodRequestBody"
+      responses:
+        "201":
+          description: Blood request created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BloodRequest"
+
+  /hospitals:
+    get:
+      operationId: listHospitals
+      tags: [hospitals]
+      summary: List hospitals and blood banks
+      parameters:
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: bloodType
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of hospitals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hospitals:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Hospital"
+                  total:
+                    type: number
+                required: [hospitals, total]
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get platform statistics
+      responses:
+        "200":
+          description: Dashboard statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/emergency-feed:
+    get:
+      operationId: getEmergencyFeed
+      tags: [dashboard]
+      summary: Get live emergency blood requests
+      parameters:
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Live emergency requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  emergencies:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/EmergencyRequest"
+                required: [emergencies]
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +223,186 @@ components:
       required:
         - status
 
+    Donor:
+      type: object
+      properties:
+        id:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        bloodType:
+          type: string
+        city:
+          type: string
+        phone:
+          type: string
+        lastDonationDate:
+          type: string
+          nullable: true
+        isEligible:
+          type: boolean
+        totalDonations:
+          type: number
+        createdAt:
+          type: string
+      required: [id, firstName, lastName, bloodType, city, phone, isEligible, totalDonations, createdAt]
+
+    CreateDonorBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        bloodType:
+          type: string
+        city:
+          type: string
+        phone:
+          type: string
+        dateOfBirth:
+          type: string
+        lastDonationDate:
+          type: string
+          nullable: true
+        weight:
+          type: number
+        hasChronicDisease:
+          type: boolean
+        email:
+          type: string
+      required: [firstName, lastName, bloodType, city, phone, dateOfBirth, weight, hasChronicDisease]
+
+    BloodRequest:
+      type: object
+      properties:
+        id:
+          type: number
+        patientName:
+          type: string
+        bloodType:
+          type: string
+        unitsNeeded:
+          type: number
+        hospitalName:
+          type: string
+        city:
+          type: string
+        urgency:
+          type: string
+        status:
+          type: string
+        contactPhone:
+          type: string
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+        fulfilledAt:
+          type: string
+          nullable: true
+      required: [id, patientName, bloodType, unitsNeeded, hospitalName, city, urgency, status, contactPhone, createdAt]
+
+    CreateBloodRequestBody:
+      type: object
+      properties:
+        patientName:
+          type: string
+        bloodType:
+          type: string
+        unitsNeeded:
+          type: number
+        hospitalName:
+          type: string
+        city:
+          type: string
+        urgency:
+          type: string
+        contactPhone:
+          type: string
+        notes:
+          type: string
+          nullable: true
+      required: [patientName, bloodType, unitsNeeded, hospitalName, city, urgency, contactPhone]
+
+    Hospital:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        city:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        availableBloodTypes:
+          type: array
+          items:
+            type: string
+        isBloodBank:
+          type: boolean
+        latitude:
+          type: number
+        longitude:
+          type: number
+        operatingHours:
+          type: string
+      required: [id, name, city, address, phone, availableBloodTypes, isBloodBank, latitude, longitude, operatingHours]
+
+    DashboardStats:
+      type: object
+      properties:
+        totalDonors:
+          type: number
+        totalDonations:
+          type: number
+        activeRequests:
+          type: number
+        partnerHospitals:
+          type: number
+        livesSaved:
+          type: number
+        donationsThisMonth:
+          type: number
+        bloodTypeBreakdown:
+          type: array
+          items:
+            type: object
+            properties:
+              bloodType:
+                type: string
+              count:
+                type: number
+            required: [bloodType, count]
+      required: [totalDonors, totalDonations, activeRequests, partnerHospitals, livesSaved, donationsThisMonth, bloodTypeBreakdown]
+
+    EmergencyRequest:
+      type: object
+      properties:
+        id:
+          type: number
+        patientName:
+          type: string
+        bloodType:
+          type: string
+        unitsNeeded:
+          type: number
+        hospitalName:
+          type: string
+        city:
+          type: string
+        urgency:
+          type: string
+        contactPhone:
+          type: string
+        minutesAgo:
+          type: number
+        status:
+          type: string
+      required: [id, patientName, bloodType, unitsNeeded, hospitalName, city, urgency, contactPhone, minutesAgo, status]
